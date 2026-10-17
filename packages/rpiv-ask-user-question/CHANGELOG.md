@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- The transcript keeps scrolling while a question is open even when another extension shows a status panel or other overlay that never takes the keys. Such an overlay used to push the question into an overlay of its own, and in fullscreen Pi a focused overlay takes `PageUp`/`PageDown` (and, on Pi 1.1, the mouse wheel) until the question is answered. The question now opens in the editor area unless an overlay that takes the keys, such as `/btw`, is open (#313).
+
 ## [2.13.9] - 2026-10-17
 
 ### Changed

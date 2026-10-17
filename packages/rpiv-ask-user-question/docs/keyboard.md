@@ -88,7 +88,8 @@ keeping the header, the question, the focused option and the key hints visible.
 
 Wheel and trackpad scrolling reach the transcript only when the terminal reports them as
 mouse events. A terminal with mouse reporting turned off (Warp, for one) converts them
-into ↑/↓ key presses instead, which move between the dialog's options. `PageUp`/`PageDown`
+into ↑/↓ key presses instead, which move between the dialog's options. tmux does the same
+unless mouse mode is on (`set -g mouse on` in `~/.tmux.conf`). `PageUp`/`PageDown`
 (`Fn+↑`/`Fn+↓` on a Mac keyboard) scroll the transcript either way.
 
 Two cases open the questionnaire as an overlay instead:
@@ -99,6 +100,11 @@ Two cases open the questionnaire as an overlay instead:
   stacks on top, so the question you see is the one your keys reach. `Ctrl+]` shrinks it to
   its one-line row so `/btw` is readable behind it; the question keeps the keys, so `Esc`
   cancels the question, and `/btw` closes after the question is answered or cancelled.
+  Overlays that never take the keys, such as an extension's status panel, don't count: the
+  question still opens in the editor area.
+
+While the questionnaire is an overlay, Pi gives it `PageUp`/`PageDown` (and, before Pi 1.2,
+the wheel), so the transcript doesn't scroll until the question is answered or cancelled.
 
 ## Collapse mode
 
