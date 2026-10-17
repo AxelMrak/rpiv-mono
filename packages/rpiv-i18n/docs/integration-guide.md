@@ -105,7 +105,7 @@ package ships and registers them:
 
 ```ts
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { I18N_NAMESPACE } from "./state/i18n-bridge.js";
+import { I18N_NAMESPACE } from "./state/i18n-bridge.ts";
 
 type I18nLoader = {
   registerLocalesFromDir: (namespace: string, packageUrl: string, options?: { label?: string }) => void;
@@ -139,7 +139,7 @@ Notes:
 ## 5. Use `t(key, fallback)` at the render call site
 
 ```ts
-import { t } from "../state/i18n-bridge.js";
+import { t } from "../state/i18n-bridge.ts";
 
 // ✓ Render-time — re-evaluated each render; live `/languages` switches apply
 function renderHeader(theme) {
