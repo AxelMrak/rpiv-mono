@@ -11,6 +11,10 @@ registration order, the optional i18n contract, or the questionnaire UI's lazy
 loading/prewarm behavior. The import-graph test guards the eager graph without
 placing a machine-dependent timing threshold in CI.
 
+The same rule now applies repo-wide: every package names the real `.ts` file in
+relative imports, enforced by `scripts/check-ts-import-specifiers.mjs`
+(`npm run check:ts-specifiers`).
+
 ## Reproduce
 
 From the repository root, with npm, Git, tar, and a Pi CLI supporting `PI_TIMING=1`:

@@ -18,8 +18,8 @@ vi.mock("node:fs", async () => {
 	};
 });
 
-import register, { __resetState, createWorkflowQuestionTransport } from "./index.js";
-import { FRAME_INTERVAL_MS, __resetState as resetSpinner, SPINNER_FRAMES } from "./title-spinner.js";
+import register, { __resetState, createWorkflowQuestionTransport } from "./index.ts";
+import { FRAME_INTERVAL_MS, __resetState as resetSpinner, SPINNER_FRAMES } from "./title-spinner.ts";
 
 const WARP_ENV_VARS = ["TERM_PROGRAM", "WARP_CLI_AGENT_PROTOCOL_VERSION", "WARP_CLIENT_VERSION"] as const;
 

@@ -4,7 +4,7 @@
  * requests, unit sub-lanes, stage progress, lane entries, dock display rows)
  * with zero runtime surface except the SINGLE_UNIT_KEY sentinel const. The
  * registry owns all state and behavior and re-exports everything declared
- * here — consumers keep importing from "./run-lane-registry.js", never from
+ * here — consumers keep importing from "./run-lane-registry.ts", never from
  * this module directly.
  */
 
@@ -12,7 +12,7 @@ import type { ExtensionUIContext } from "@earendil-works/pi-coding-agent";
 
 import type { RunRecap } from "@juicesharp/rpiv-workflow";
 
-import type { LaneUsage } from "./lane-usage.js";
+import type { LaneUsage } from "./lane-usage.ts";
 
 /** Lane status taxonomy — mirrors rpiv-workflow's RunTermination.status (types.ts:145-149). */
 export type LaneStatus = "running" | "completed" | "failed" | "aborted" | "cancelled";

@@ -38,7 +38,7 @@ vi.mock("@earendil-works/pi-ai/compat", async (importOriginal) => {
 });
 
 import { completeSimple } from "@earendil-works/pi-ai/compat";
-import { registerAdvisorTool, setAdvisorModel } from "./advisor/index.js";
+import { registerAdvisorTool, setAdvisorModel } from "./advisor/index.ts";
 
 /** Run one real executor turn so Pi records its system prompt + tool loadout in the transcript. */
 async function executorSession(home: string): Promise<SessionManager> {

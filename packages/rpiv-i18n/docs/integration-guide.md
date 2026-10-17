@@ -194,7 +194,7 @@ statuses, modes), a one-line helper keeps render code tight:
 
 ```ts
 // state/i18n-bridge.ts
-import { ROW_INTENT_META, type SentinelKind } from "./row-intent.js";
+import { ROW_INTENT_META, type SentinelKind } from "./row-intent.ts";
 
 export function displayLabel(kind: SentinelKind): string {
   return t(`sentinel.${kind}`, ROW_INTENT_META[kind].label);

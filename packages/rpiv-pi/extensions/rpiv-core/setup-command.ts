@@ -11,12 +11,12 @@
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { readLoadedSiblingSources } from "./loaded-siblings.js";
-import { findMissingSiblings } from "./package-checks.js";
-import { spawnPiInstall } from "./pi-installer.js";
-import { findLegacySiblings, pruneLegacySiblings } from "./prune-legacy-siblings.js";
-import type { SiblingPlugin } from "./siblings.js";
-import { getPiAgentSettingsPath, toErrorMessage } from "./utils.js";
+import { readLoadedSiblingSources } from "./loaded-siblings.ts";
+import { findMissingSiblings } from "./package-checks.ts";
+import { spawnPiInstall } from "./pi-installer.ts";
+import { findLegacySiblings, pruneLegacySiblings } from "./prune-legacy-siblings.ts";
+import type { SiblingPlugin } from "./siblings.ts";
+import { getPiAgentSettingsPath, toErrorMessage } from "./utils.ts";
 
 const INSTALL_TIMEOUT_MS = 120_000;
 const STDERR_SNIPPET_CHARS = 300;

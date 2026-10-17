@@ -2,10 +2,10 @@ import type { Theme } from "@earendil-works/pi-coding-agent";
 import type { TUI } from "@earendil-works/pi-tui";
 import { makeTheme } from "@juicesharp/rpiv-test-utils";
 import { describe, expect, it, vi } from "vitest";
-import { buildQuestionnaireResponse } from "../tool/response-envelope.js";
-import type { QuestionnaireResult, QuestionParams } from "../tool/types.js";
-import type { WrappingSelectItem } from "../view/components/wrapping-select.js";
-import { QuestionnaireSession } from "./questionnaire-session.js";
+import { buildQuestionnaireResponse } from "../tool/response-envelope.ts";
+import type { QuestionnaireResult, QuestionParams } from "../tool/types.ts";
+import type { WrappingSelectItem } from "../view/components/wrapping-select.ts";
+import { QuestionnaireSession } from "./questionnaire-session.ts";
 
 const DOWN = "\x1b[B";
 const UP = "\x1b[A";

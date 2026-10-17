@@ -5,9 +5,9 @@ import {
 	buildQuestionnaireResponse,
 	buildToolResult,
 	registerAskUserQuestionTool,
-} from "./ask-user-question.js";
-import { prepareQuestionArguments } from "./tool/normalize-params.js";
-import type { QuestionnaireResult, QuestionParams } from "./tool/types.js";
+} from "./ask-user-question.ts";
+import { prepareQuestionArguments } from "./tool/normalize-params.ts";
+import type { QuestionnaireResult, QuestionParams } from "./tool/types.ts";
 
 describe("buildItemsForQuestion", () => {
 	it("appends the Type-something sentinel", () => {

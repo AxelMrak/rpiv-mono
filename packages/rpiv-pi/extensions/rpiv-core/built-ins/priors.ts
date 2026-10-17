@@ -21,8 +21,8 @@ import {
 	type RiskRecord,
 	rulingEffectivePass,
 	verdictRiskRulings,
-} from "./gates.js";
-import { haltPreflight, latestFsArtifact, readArtifactFile } from "./shared.js";
+} from "./gates.ts";
+import { haltPreflight, latestFsArtifact, readArtifactFile } from "./shared.ts";
 
 /**
  * Copy the latest graded plan off `plans` into `.rpiv/artifacts/priors/`

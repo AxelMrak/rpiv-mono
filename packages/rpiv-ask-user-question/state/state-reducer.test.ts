@@ -5,10 +5,10 @@ import {
 	makeApplyContext as makeCtx,
 	makeQuestion,
 	makeQuestionnaireState as makeState,
-} from "../test-fixtures.js";
-import type { QuestionAnswer, QuestionData } from "../tool/types.js";
-import type { QuestionnaireAction } from "./key-router.js";
-import { type Effect, reduce } from "./state-reducer.js";
+} from "../test-fixtures.ts";
+import type { QuestionAnswer, QuestionData } from "../tool/types.ts";
+import type { QuestionnaireAction } from "./key-router.ts";
+import { type Effect, reduce } from "./state-reducer.ts";
 
 describe("reduce — nav", () => {
 	it("regular nav keeps the active draft buffer intact", () => {

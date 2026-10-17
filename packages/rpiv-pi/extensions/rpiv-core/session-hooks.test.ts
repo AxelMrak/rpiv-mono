@@ -4,12 +4,12 @@ import { join } from "node:path";
 import { createMockCtx, createMockPi, stubGitExec, writeGuidanceTree } from "@juicesharp/rpiv-test-utils";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("./package-checks.js", () => ({
+vi.mock("./package-checks.ts", () => ({
 	findMissingSiblings: vi.fn(() => []),
 	findInstalledSiblings: vi.fn(() => []),
 }));
-vi.mock("./agents.js", async (importOriginal) => {
-	const actual = await importOriginal<typeof import("./agents.js")>();
+vi.mock("./agents.ts", async (importOriginal) => {
+	const actual = await importOriginal<typeof import("./agents.ts")>();
 	return {
 		...actual,
 		syncBundledAgents: vi.fn(() => ({
@@ -29,12 +29,12 @@ vi.mock("./agents.js", async (importOriginal) => {
 	};
 });
 
-import type { SyncResult } from "./agents.js";
-import { cleanupPerCwdAgents, SYNC_OP, syncBundledAgents } from "./agents.js";
-import { clearGitContextCache, getGitContext, resetInjectedMarker, takeGitContextIfChanged } from "./git-context.js";
-import { clearInjectionState } from "./guidance.js";
-import { findMissingSiblings } from "./package-checks.js";
-import { __resetSessionHooksAnnounced, registerSessionHooks } from "./session-hooks.js";
+import type { SyncResult } from "./agents.ts";
+import { cleanupPerCwdAgents, SYNC_OP, syncBundledAgents } from "./agents.ts";
+import { clearGitContextCache, getGitContext, resetInjectedMarker, takeGitContextIfChanged } from "./git-context.ts";
+import { clearInjectionState } from "./guidance.ts";
+import { findMissingSiblings } from "./package-checks.ts";
+import { __resetSessionHooksAnnounced, registerSessionHooks } from "./session-hooks.ts";
 
 // Pins the substring `isStaleCtxError` matches in pi-core's invalidated-proxy error.
 const STALE_CTX_MESSAGE = "This extension ctx is stale after session replacement or reload.";
@@ -316,7 +316,7 @@ describe("G0: session_start → real syncBundledAgents → notifyAgentSyncDrift"
 	});
 
 	it("on a fresh tmp cwd, copies bundled agents and emits a single 'Copied N agents' info", async () => {
-		const real = await vi.importActual<typeof import("./agents.js")>("./agents.js");
+		const real = await vi.importActual<typeof import("./agents.ts")>("./agents.ts");
 		vi.mocked(syncBundledAgents).mockImplementationOnce((apply) => real.syncBundledAgents(apply));
 
 		const { pi, captured } = createMockPi({ exec: stubGitExec({}) as never });
@@ -340,7 +340,7 @@ describe("G0: session_start → real syncBundledAgents → notifyAgentSyncDrift"
 	});
 
 	it("on a second cold-start, reports unchanged (no Copied / no Synced / no drift)", async () => {
-		const real = await vi.importActual<typeof import("./agents.js")>("./agents.js");
+		const real = await vi.importActual<typeof import("./agents.ts")>("./agents.ts");
 		vi.mocked(syncBundledAgents).mockImplementation((apply) => real.syncBundledAgents(apply));
 
 		const { pi, captured } = createMockPi({ exec: stubGitExec({}) as never });

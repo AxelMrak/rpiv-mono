@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Faster extension startup: relative imports now name the published `.ts` files instead of nonexistent `.js` targets, so Pi's loader (jiti) no longer runs fallback resolution for each of them on every launch. Runtime behavior is unchanged. Thanks @ry4nyu for #306, and @szastupov for #304.
+
 ## [2.13.8] - 2026-10-12
 
 ## [2.13.7] - 2026-10-12

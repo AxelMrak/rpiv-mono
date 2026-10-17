@@ -5,11 +5,11 @@ import { initTheme } from "@earendil-works/pi-coding-agent";
 import { getKeybindings } from "@earendil-works/pi-tui";
 import { createMockCtx, createMockPi } from "@juicesharp/rpiv-test-utils";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { registerAskUserQuestionTool } from "./ask-user-question.js";
-import { HOST_ALLOCATED_ROWS, resolvePresentation } from "./presentation.js";
-import type { QuestionnaireSessionComponent } from "./state/questionnaire-session.js";
-import type { QuestionnaireResult } from "./tool/types.js";
-import { HINT_PART_CANCEL } from "./view/dialog-builder.js";
+import { registerAskUserQuestionTool } from "./ask-user-question.ts";
+import { HOST_ALLOCATED_ROWS, resolvePresentation } from "./presentation.ts";
+import type { QuestionnaireSessionComponent } from "./state/questionnaire-session.ts";
+import type { QuestionnaireResult } from "./tool/types.ts";
+import { HINT_PART_CANCEL } from "./view/dialog-builder.ts";
 
 type Factory = (
 	tui: unknown,

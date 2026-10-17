@@ -16,8 +16,8 @@
 
 import type { RunRecap } from "@juicesharp/rpiv-workflow";
 
-import { addLaneUsage, type LaneUsage, toLaneUsage } from "./lane-usage.js";
-import { emitQuestionAsked, emitQuestionResolved } from "./question-lifecycle.js";
+import { addLaneUsage, type LaneUsage, toLaneUsage } from "./lane-usage.ts";
+import { emitQuestionAsked, emitQuestionResolved } from "./question-lifecycle.ts";
 import type {
 	DisplayRow,
 	LaneEntry,
@@ -26,7 +26,7 @@ import type {
 	LaneStatus,
 	PendingInput,
 	UnitLane,
-} from "./run-lane-types.js";
+} from "./run-lane-types.ts";
 
 // ---------------------------------------------------------------------------
 // Lane data model — the type surface lives in ./run-lane-types.ts (this
@@ -46,8 +46,8 @@ export type {
 	LaneStatus,
 	PendingInput,
 	UnitLane,
-} from "./run-lane-types.js";
-export { SINGLE_UNIT_KEY } from "./run-lane-types.js";
+} from "./run-lane-types.ts";
+export { SINGLE_UNIT_KEY } from "./run-lane-types.ts";
 
 type Listener = () => void;
 

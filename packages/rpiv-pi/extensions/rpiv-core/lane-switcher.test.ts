@@ -1,9 +1,9 @@
 import type { ExtensionAPI, ExtensionUIContext } from "@earendil-works/pi-coding-agent";
 import { createMockPi, createMockUI } from "@juicesharp/rpiv-test-utils";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { showLaneConsole } from "./lane-console.js";
-import { createLaneRelayUiContext } from "./lane-relay-ui.js";
-import { __resetLaneSwitcher, registerLaneSwitcher, switchIntoLane } from "./lane-switcher.js";
+import { showLaneConsole } from "./lane-console.ts";
+import { createLaneRelayUiContext } from "./lane-relay-ui.ts";
+import { __resetLaneSwitcher, registerLaneSwitcher, switchIntoLane } from "./lane-switcher.ts";
 import {
 	__resetRunLaneRegistry,
 	enqueueInput,
@@ -14,16 +14,16 @@ import {
 	setFocusedRun,
 	setUnitStarted,
 	subscribeLanes,
-} from "./run-lane-registry.js";
+} from "./run-lane-registry.ts";
 
 // Mock the console so we can assert the switch flow without driving the real
 // ctx.ui.custom machinery. The read-only viewer is gone — the unified
 // console is now the sole transcript surface, so mocking it covers the full switch path.
-vi.mock("./lane-console.js", () => ({ showLaneConsole: vi.fn() }));
+vi.mock("./lane-console.ts", () => ({ showLaneConsole: vi.fn() }));
 // Keep the registry REAL (the dock + switcher both depend on its live behavior) but
 // wrap subscribeLanes so we can count subscriptions and capture the returned unsub.
-vi.mock("./run-lane-registry.js", async (importActual) => {
-	const actual = await importActual<typeof import("./run-lane-registry.js")>();
+vi.mock("./run-lane-registry.ts", async (importActual) => {
+	const actual = await importActual<typeof import("./run-lane-registry.ts")>();
 	return {
 		...actual,
 		subscribeLanes: vi.fn((listener: () => void) => vi.fn(actual.subscribeLanes(listener))),

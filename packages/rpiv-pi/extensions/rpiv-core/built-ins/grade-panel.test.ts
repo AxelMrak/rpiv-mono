@@ -11,8 +11,8 @@ import type { Output, RunView } from "@juicesharp/rpiv-workflow";
 import { takeRouteNote } from "@juicesharp/rpiv-workflow/internal";
 import { fs as fsHandle } from "@juicesharp/rpiv-workflow/registration";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { SHIP_DIMENSION_FANOUT, SHIP_DIMENSIONS, shipGatePasses, shipVerdictOutcome } from "../built-in-workflows.js";
-import { findWorkflow } from "../workflow-test-harness.js";
+import { SHIP_DIMENSION_FANOUT, SHIP_DIMENSIONS, shipGatePasses, shipVerdictOutcome } from "../built-in-workflows.ts";
+import { findWorkflow } from "../workflow-test-harness.ts";
 
 describe("build plan gate grade panel (--context threading)", () => {
 	const planGateLoop = () => {

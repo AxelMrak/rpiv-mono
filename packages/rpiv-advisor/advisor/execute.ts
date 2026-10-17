@@ -15,8 +15,8 @@ import {
 	type ExtensionAPI,
 	type ExtensionContext,
 } from "@earendil-works/pi-coding-agent";
-import { ensureUserTailForAdvisor, stripInflightAdvisorCall, stripToolDeclarations } from "./context.js";
-import { getInventoryMessage } from "./inventory.js";
+import { ensureUserTailForAdvisor, stripInflightAdvisorCall, stripToolDeclarations } from "./context.ts";
+import { getInventoryMessage } from "./inventory.ts";
 import {
 	ERR_ABORTED_DETAIL,
 	ERR_CALL_ABORTED,
@@ -30,10 +30,10 @@ import {
 	errNoApiKey,
 	errNoApiKeyDetail,
 	msgConsulting,
-} from "./messages.js";
-import { getRuntimeCompleteSimple, loadCompleteSimple } from "./pi-compat.js";
-import { ADVISOR_SYSTEM_PROMPT } from "./prompt.js";
-import { getAdvisorEffort, getAdvisorModel } from "./state.js";
+} from "./messages.ts";
+import { getRuntimeCompleteSimple, loadCompleteSimple } from "./pi-compat.ts";
+import { ADVISOR_SYSTEM_PROMPT } from "./prompt.ts";
+import { getAdvisorEffort, getAdvisorModel } from "./state.ts";
 
 interface AdvisorDetails {
 	advisorModel?: string;

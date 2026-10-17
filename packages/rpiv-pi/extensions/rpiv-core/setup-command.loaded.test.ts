@@ -10,12 +10,12 @@ import { dirname } from "node:path";
 import { createMockCtx, createMockPi } from "@juicesharp/rpiv-test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("./pi-installer.js", () => ({ spawnPiInstall: vi.fn(async () => ({ code: 0, stdout: "", stderr: "" })) }));
+vi.mock("./pi-installer.ts", () => ({ spawnPiInstall: vi.fn(async () => ({ code: 0, stdout: "", stderr: "" })) }));
 
-import { spawnPiInstall } from "./pi-installer.js";
-import { registerSetupCommand } from "./setup-command.js";
-import { SIBLINGS } from "./siblings.js";
-import { getPiAgentSettingsPath } from "./utils.js";
+import { spawnPiInstall } from "./pi-installer.ts";
+import { registerSetupCommand } from "./setup-command.ts";
+import { SIBLINGS } from "./siblings.ts";
+import { getPiAgentSettingsPath } from "./utils.ts";
 
 const KIT = "/home/u/.pi/agent/npm/node_modules/frida-pi-studio/node_modules";
 

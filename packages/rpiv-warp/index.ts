@@ -1,6 +1,6 @@
 import { basename } from "node:path";
 import type { ExtensionAPI, ExtensionContext, SessionEntry } from "@earendil-works/pi-coding-agent";
-import { DEFAULT_HEARTBEAT_MS, getBlockingTools, getHeartbeatMs } from "./config.js";
+import { DEFAULT_HEARTBEAT_MS, getBlockingTools, getHeartbeatMs } from "./config.ts";
 import {
 	buildIdlePromptPayload,
 	buildPromptSubmitPayload,
@@ -14,10 +14,10 @@ import {
 	lastAssistantText,
 	serializePayload,
 	type WarpPayload,
-} from "./payload.js";
-import { detectWarpEnvironment } from "./protocol.js";
-import { startSpinner, stopSpinner } from "./title-spinner.js";
-import { writeOSC777 } from "./warp-notify.js";
+} from "./payload.ts";
+import { detectWarpEnvironment } from "./protocol.ts";
+import { startSpinner, stopSpinner } from "./title-spinner.ts";
+import { writeOSC777 } from "./warp-notify.ts";
 
 // ---------------------------------------------------------------------------
 // Module-level timer state — __resetState() clears for test isolation

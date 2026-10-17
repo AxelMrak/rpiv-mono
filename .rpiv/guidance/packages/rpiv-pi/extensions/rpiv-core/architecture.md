@@ -60,7 +60,7 @@ agents-*.ts (family)    — Bundled-agent sync subsystem in five acyclic layers 
                           (injectModelFrontmatter pure transform), agents-sync.ts (syncBundledAgents /
                           cleanupPerCwdAgents / isSafeDestructiveOp engine). agents.ts is the ~36-line
                           public barrel: col-0 re-exports of exactly the pre-split 14-symbol surface,
-                          so ./agents.js consumers and their vi.mock sites stay byte-identical;
+                          so ./agents.ts consumers and their vi.mock sites stay byte-identical;
                           internal layer symbols are not re-exported.
 rpiv-models/            — Nested subdir for the /rpiv-models cascade picker: command.ts, index.ts, items.ts,
                           overrides.ts (+ units tests).

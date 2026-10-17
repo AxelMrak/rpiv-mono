@@ -1,11 +1,11 @@
 import type { Theme } from "@earendil-works/pi-coding-agent";
 import { makeTheme } from "@juicesharp/rpiv-test-utils";
 import { describe, expect, it } from "vitest";
-import type { QuestionData } from "../../../tool/types.js";
-import { OptionListView } from "../option-list-view.js";
-import type { WrappingSelectItem } from "../wrapping-select.js";
-import { adaptiveLeftWidth } from "./preview-layout-decider.js";
-import { NOTES_AFFORDANCE_TEXT, PreviewBlockRenderer, PreviewPane } from "./preview-pane.js";
+import type { QuestionData } from "../../../tool/types.ts";
+import { OptionListView } from "../option-list-view.ts";
+import type { WrappingSelectItem } from "../wrapping-select.ts";
+import { adaptiveLeftWidth } from "./preview-layout-decider.ts";
+import { NOTES_AFFORDANCE_TEXT, PreviewBlockRenderer, PreviewPane } from "./preview-pane.ts";
 
 // #210: under a row allowance the preview body fits itself — the box shrinks but always
 // closes and counts the hidden lines; the options scroll around the focused option.

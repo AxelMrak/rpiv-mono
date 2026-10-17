@@ -9,8 +9,8 @@
  * that consult it stay resume-safe.
  */
 import type { Output, RunView } from "@juicesharp/rpiv-workflow/registration";
-import { FILE_LINE_CITATION_RE } from "./shared.js";
-import { anchorNitsOnly, channelNumber, latestChannelData, RISK_DIMENSION, SHIP_DIMENSIONS } from "./verdict-core.js";
+import { FILE_LINE_CITATION_RE } from "./shared.ts";
+import { anchorNitsOnly, channelNumber, latestChannelData, RISK_DIMENSION, SHIP_DIMENSIONS } from "./verdict-core.ts";
 
 /**
  * Gate scrutiny tier, derived ONLY from signals already replayed by the resume

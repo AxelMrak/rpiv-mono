@@ -6,8 +6,8 @@ Orchestration shell above leaf widgets: composes pi-tui primitives into a height
 ## Dependencies
 - **`@earendil-works/pi-tui`**: `Component`, `Container`, `Editor`, `Spacer`, `Text`, `truncateToWidth`
 - **`@earendil-works/pi-coding-agent`**: `Theme`, `DynamicBorder`
-- **`../state/selectors/{contract,derivations,focus}.js`**: read-only selectors and types
-- **`../state/state.js`**, **`../state/i18n-bridge.js`**, **`../tool/{types,format-answer}.js`**
+- **`../state/selectors/{contract,derivations,focus}.ts`**: read-only selectors and types
+- **`../state/state.ts`**, **`../state/i18n-bridge.ts`**, **`../tool/{types,format-answer}.ts`**
 
 ## Module Structure
 ```

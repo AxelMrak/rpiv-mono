@@ -6,7 +6,7 @@ The LLM-facing tool contract surface: declares tool identity strings, the TypeBo
 ## Dependencies
 - **`typebox`** (`peerDependencies: "*"`, host-provided): `Type`, `Static` for `TodoParamsSchema`. Pi supplies and aliases `typebox` at load time, so a `dependencies` entry is never needed and triggers the host's duplicate-module warning (v2.12.0, #282)
 - **`@earendil-works/pi-ai`** (peer): `StringEnum` for `action` and `status` literal unions
-- **Internal**: `../state/state.js` (`TaskState`), `../state/state-reducer.js` (`Op`), `../state/task-graph.js` (`deriveBlocks`)
+- **Internal**: `../state/state.ts` (`TaskState`), `../state/state-reducer.ts` (`Op`), `../state/task-graph.ts` (`deriveBlocks`)
 
 ## Inbound / Outbound
 - **Imported by** `../todo.ts`: registers the `todo` tool using `TOOL_NAME`, `TodoParamsSchema`, and `buildToolResult`; and by `../view/format.ts` (`sanitizeTerminalText`, alongside its existing type-only import of `types.ts`)

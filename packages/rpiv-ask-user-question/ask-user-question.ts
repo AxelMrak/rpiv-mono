@@ -115,9 +115,9 @@ function emitTerminalAttention(): void {
 /** Delay before the background session-graph pre-warm; mirrors rpiv-workflow's /wf prewarm. */
 export const PREWARM_DELAY_MS = 2000;
 
-type SessionModule = typeof import("./state/questionnaire-session.js");
+type SessionModule = typeof import("./state/questionnaire-session.ts");
 
-type SessionRef = { current: import("./state/questionnaire-session.js").QuestionnaireSession | null };
+type SessionRef = { current: import("./state/questionnaire-session.ts").QuestionnaireSession | null };
 type OverlayHandleRef = { current: OverlayHandle | undefined };
 
 type SessionLoad =
@@ -138,7 +138,7 @@ type SessionLoad =
 export async function loadQuestionnaireSession(): Promise<SessionLoad> {
 	let mod: SessionModule;
 	try {
-		mod = await import("./state/questionnaire-session.js");
+		mod = await import("./state/questionnaire-session.ts");
 	} catch (e) {
 		const cause = e instanceof Error ? e.message : String(e);
 		return { ok: false, error: "session_load_failed", message: `${ERROR_SESSION_LOAD_FAILED} (cause: ${cause})` };
@@ -210,9 +210,9 @@ function makeSessionFactory(config: {
 	return (
 		tui: TUI,
 		theme: Theme,
-		keybindings: import("./state/questionnaire-session.js").QuestionnaireSessionConfig["keybindings"],
+		keybindings: import("./state/questionnaire-session.ts").QuestionnaireSessionConfig["keybindings"],
 		done: (result: QuestionnaireResult) => void,
-	): import("./state/questionnaire-session.js").QuestionnaireSessionComponent => {
+	): import("./state/questionnaire-session.ts").QuestionnaireSessionComponent => {
 		// The factory runs at mount time — the first point the TUI is reachable — so this is
 		// where an inline mount notices an overlay already on screen and gives the slot up.
 		if (!presentation.overlay && mustYieldInlineSlot(tui)) {
@@ -238,7 +238,7 @@ function makeSessionFactory(config: {
 				try {
 					const [{ SettingsManager }, { editWithExternalEditor }] = await Promise.all([
 						import("@earendil-works/pi-coding-agent"),
-						import("./state/external-editor.js"),
+						import("./state/external-editor.ts"),
 					]);
 					const editorCommand = SettingsManager.create(ctx.cwd, undefined, {
 						projectTrusted: ctx.isProjectTrusted(),
@@ -261,7 +261,7 @@ function makeSessionFactory(config: {
 }
 
 /** Stand-in returned by a mount that resolved before mounting (Pi discards it unmounted). */
-const INERT_COMPONENT: import("./state/questionnaire-session.js").QuestionnaireSessionComponent = {
+const INERT_COMPONENT: import("./state/questionnaire-session.ts").QuestionnaireSessionComponent = {
 	render: () => [],
 	invalidate: () => {},
 	handleInput: () => {},

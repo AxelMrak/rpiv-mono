@@ -24,10 +24,10 @@ vi.mock("@earendil-works/pi-tui", async (orig) => {
 });
 
 import { applyLocale, registerStrings } from "@juicesharp/rpiv-i18n";
-import { I18N_NAMESPACE } from "../../../state/i18n-bridge.js";
-import type { QuestionData } from "../../../tool/types.js";
-import { OptionListView } from "../option-list-view.js";
-import type { WrappingSelectItem } from "../wrapping-select.js";
+import { I18N_NAMESPACE } from "../../../state/i18n-bridge.ts";
+import type { QuestionData } from "../../../tool/types.ts";
+import { OptionListView } from "../option-list-view.ts";
+import type { WrappingSelectItem } from "../wrapping-select.ts";
 import {
 	adaptiveLeftWidth,
 	crossTabLeftWidthWithDonation,
@@ -35,7 +35,7 @@ import {
 	MIN_LEFT,
 	MIN_PREVIEW_WIDTH,
 	PREVIEW_COLUMN_GAP,
-} from "./preview-layout-decider.js";
+} from "./preview-layout-decider.ts";
 import {
 	MAX_PREVIEW_HEIGHT_SIDE_BY_SIDE,
 	MAX_PREVIEW_HEIGHT_STACKED,
@@ -46,7 +46,7 @@ import {
 	PreviewBlockRenderer,
 	PreviewPane,
 	renderBorderedBox,
-} from "./preview-pane.js";
+} from "./preview-pane.ts";
 
 const theme = makeTheme() as unknown as Theme;
 const selectTheme = {

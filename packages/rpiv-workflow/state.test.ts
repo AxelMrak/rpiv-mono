@@ -22,7 +22,7 @@ import {
 	summarizeRun,
 	type WorkflowHeader,
 	type WorkflowStage,
-} from "./state/index.js";
+} from "./state/index.ts";
 
 let tmpDir: string;
 

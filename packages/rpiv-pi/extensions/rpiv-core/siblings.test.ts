@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { LEGACY_SIBLINGS, SIBLINGS } from "./siblings.js";
+import { LEGACY_SIBLINGS, SIBLINGS } from "./siblings.ts";
 
 describe("SIBLINGS registry", () => {
 	it("contains 8 entries (pi-subagents at SIBLINGS[0] — tintinweb fork is the dispatch runtime)", () => {

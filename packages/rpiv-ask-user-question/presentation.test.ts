@@ -7,7 +7,7 @@ import {
 	mustYieldInlineSlot,
 	resolvePresentation,
 	rowBudgetForHost,
-} from "./presentation.js";
+} from "./presentation.ts";
 
 describe("row budgets", () => {
 	it("passes terminal rows through unchanged for the overlay", () => {

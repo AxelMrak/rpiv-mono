@@ -2,17 +2,17 @@ import { join } from "node:path";
 import { createMockCtx, createMockPi } from "@juicesharp/rpiv-test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("./pi-installer.js", () => ({ spawnPiInstall: vi.fn() }));
-vi.mock("./package-checks.js", () => ({ findMissingSiblings: vi.fn() }));
-vi.mock("./prune-legacy-siblings.js", () => ({
+vi.mock("./pi-installer.ts", () => ({ spawnPiInstall: vi.fn() }));
+vi.mock("./package-checks.ts", () => ({ findMissingSiblings: vi.fn() }));
+vi.mock("./prune-legacy-siblings.ts", () => ({
 	findLegacySiblings: vi.fn(),
 	pruneLegacySiblings: vi.fn(),
 }));
 
-import { findMissingSiblings } from "./package-checks.js";
-import { spawnPiInstall } from "./pi-installer.js";
-import { findLegacySiblings, pruneLegacySiblings } from "./prune-legacy-siblings.js";
-import { registerSetupCommand } from "./setup-command.js";
+import { findMissingSiblings } from "./package-checks.ts";
+import { spawnPiInstall } from "./pi-installer.ts";
+import { findLegacySiblings, pruneLegacySiblings } from "./prune-legacy-siblings.ts";
+import { registerSetupCommand } from "./setup-command.ts";
 
 beforeEach(() => {
 	vi.mocked(spawnPiInstall).mockReset();

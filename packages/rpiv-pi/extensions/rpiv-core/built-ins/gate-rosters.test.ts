@@ -13,8 +13,8 @@
 import type { EdgeFn } from "@juicesharp/rpiv-workflow";
 import { fs as fsHandle, type Output, type RunView } from "@juicesharp/rpiv-workflow/registration";
 import { describe, expect, it } from "vitest";
-import { SHIP_DIMENSION_FANOUT, shipGatePasses } from "../built-in-workflows.js";
-import { findWorkflow } from "../workflow-test-harness.js";
+import { SHIP_DIMENSION_FANOUT, shipGatePasses } from "../built-in-workflows.ts";
+import { findWorkflow } from "../workflow-test-harness.ts";
 import {
 	evidenceCitesFileLine,
 	gateRoster,
@@ -24,10 +24,10 @@ import {
 	type RiskRecord,
 	rulingEffectivePass,
 	shipRoster,
-} from "./gate-rosters.js";
-import { planGatePasses } from "./gates.js";
-import { PLAN_PANEL_PROGRESS } from "./grade-panel.js";
-import { PLAN_DIMENSIONS, RISK_DIMENSION, SHIP_DIMENSIONS, SLICE_DIMENSIONS } from "./verdict-core.js";
+} from "./gate-rosters.ts";
+import { planGatePasses } from "./gates.ts";
+import { PLAN_PANEL_PROGRESS } from "./grade-panel.ts";
+import { PLAN_DIMENSIONS, RISK_DIMENSION, SHIP_DIMENSIONS, SLICE_DIMENSIONS } from "./verdict-core.ts";
 
 const dataRow = (data: Record<string, unknown>): Output =>
 	({ kind: "json", artifacts: [], data, meta: {} }) as unknown as Output;
