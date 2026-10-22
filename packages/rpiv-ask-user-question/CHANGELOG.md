@@ -10,6 +10,7 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - The transcript keeps scrolling while a question is open even when another extension shows a status panel or other overlay that never takes the keys. Such an overlay used to push the question into an overlay of its own, and in fullscreen Pi a focused overlay takes `PageUp`/`PageDown` (and, on Pi 1.1, the mouse wheel) until the question is answered. The question now opens in the editor area unless an overlay that takes the keys, such as `/btw`, is open (#313).
+- The notes editor stays visible while you type when the question is taller than the terminal. Pressing `n` on a long question used to show only the `Notes:` header, with the editor scrolled out of view under a `↓` arrow and an IME composition window drawn elsewhere on screen. The dialog now scrolls to the open editor, following the cursor line when the editor is taller than the space left; the Submit tab's global note gets the same fix. Thanks @hoonysis. (#317)
 
 ## [2.13.9] - 2026-10-17
 
