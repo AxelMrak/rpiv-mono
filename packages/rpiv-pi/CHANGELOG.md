@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- rpiv-advisor is now an optional sibling. Pi no longer shows the *sibling extensions missing* banner when it is not installed, and `/rpiv-setup` lists its `pi install` command instead of installing it, so you can leave it out or run your own advisor extension without being warned or having it reinstalled. Nothing in rpiv-pi needs it: `code-review` already reconciles findings inline when the advisor is absent. Existing installs keep it. Thanks @0xbentang. (#167)
+
 ### Fixed
 
 - The lane browser hotkey works on Windows and WSL, and Pi no longer warns about it at every launch. Pi reserves `ctrl+q` there for queueing a follow-up message, so it skipped rpiv-pi's shortcut and reported a conflict. The default is now `alt+l` on Windows and WSL; macOS and Linux keep `ctrl+q`, and `RPIV_LANES_HOTKEY` still overrides it everywhere. Thanks @chances. (#252)

@@ -142,7 +142,8 @@ You need no build step and no native dependency.
 ## Related
 
 `/rpiv-setup` installs the ones marked auto; the rest are standalone
-`pi install npm:@juicesharp/rpiv-<name>`.
+`pi install npm:@juicesharp/rpiv-<name>`. rpiv-advisor is optional: setup lists its install
+command but leaves it to you, and Pi starts without a warning when it is absent.
 
 | Package | Role | Auto |
 | --- | --- | :---: |
@@ -150,7 +151,7 @@ You need no build step and no native dependency.
 | [`@juicesharp/rpiv-args`](https://www.npmjs.com/package/@juicesharp/rpiv-args) | `$1` / `$ARGUMENTS` placeholders in skill bodies | ✓ |
 | [`@juicesharp/rpiv-ask-user-question`](https://www.npmjs.com/package/@juicesharp/rpiv-ask-user-question) | Structured questionnaires back to you | ✓ |
 | [`@juicesharp/rpiv-todo`](https://www.npmjs.com/package/@juicesharp/rpiv-todo) | Live task overlay surviving `/reload` | ✓ |
-| [`@juicesharp/rpiv-advisor`](https://www.npmjs.com/package/@juicesharp/rpiv-advisor) | Escalate to a stronger reviewer model | ✓ |
+| [`@juicesharp/rpiv-advisor`](https://www.npmjs.com/package/@juicesharp/rpiv-advisor) | Escalate to a stronger reviewer model | — |
 | [`@juicesharp/rpiv-web-tools`](https://www.npmjs.com/package/@juicesharp/rpiv-web-tools) | Web search + fetch with pluggable providers | ✓ |
 | [`@juicesharp/rpiv-i18n`](https://www.npmjs.com/package/@juicesharp/rpiv-i18n) | Localization SDK for the rpiv TUI strings | ✓ |
 | [`@juicesharp/rpiv-warp`](https://www.npmjs.com/package/@juicesharp/rpiv-warp) | Warp Blocked badge on parked lane questions | — |
