@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- The lane browser hotkey works on Windows and WSL, and Pi no longer warns about it at every launch. Pi reserves `ctrl+q` there for queueing a follow-up message, so it skipped rpiv-pi's shortcut and reported a conflict. The default is now `alt+l` on Windows and WSL; macOS and Linux keep `ctrl+q`, and `RPIV_LANES_HOTKEY` still overrides it everywhere. Thanks @chances. (#252)
+
 ## [2.13.9] - 2026-10-17
 
 ### Changed

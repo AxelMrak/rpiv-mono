@@ -38,7 +38,7 @@ the siblings contribute capability.
 | `/rpiv-update-agents` | always | |
 | `/rpiv-models` | always | Interactive only |
 | `/lanes` | always | No-ops with a notice when nothing is running |
-| `ctrl+q` | conditionally | Skipped entirely when `RPIV_LANES_HOTKEY` disables it |
+| `ctrl+q` (`alt+l` on Windows and WSL) | conditionally | Skipped entirely when `RPIV_LANES_HOTKEY` disables it |
 | `/skill:<name>` × 30 | Pi, from the manifest | |
 | `--rpiv-debug` flag | always | Reveals the hidden injected messages below |
 
