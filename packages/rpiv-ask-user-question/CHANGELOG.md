@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- `ask_user_question` stays available to the model when Pi's codemode runs in `"only"` mode. That mode hides every regular tool behind `codemode` scripts, so the model stopped asking structured questions. The tool is now registered with `exposure: "model-only"`: the model always calls it directly, and codemode scripts can no longer call it, since a question needs the user and does not belong mid-script. Thanks @cucumber20260226. (#310)
+
 ## [2.13.10] - 2026-10-23
 
 ### Fixed

@@ -458,6 +458,9 @@ export function registerAskUserQuestionTool(pi: ExtensionAPI): void {
 	pi.registerTool({
 		name: ASK_USER_QUESTION_TOOL_NAME,
 		label: "Ask User Question",
+		// Interactive: always a top-level call, never from a codemode script, so
+		// codemode "only" keeps declaring it to the model (#310).
+		exposure: "model-only",
 		description: guidance.description ?? DEFAULT_TOOL_DESCRIPTION,
 		promptSnippet: guidance.promptSnippet ?? DEFAULT_PROMPT_SNIPPET,
 		promptGuidelines: guidance.promptGuidelines ?? DEFAULT_PROMPT_GUIDELINES,
