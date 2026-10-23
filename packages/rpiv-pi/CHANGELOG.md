@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **A mechanics risk about an extensionless file no longer loops the plan gate.** A `pass` ruling citing `scripts/Makefile:18` or `./Makefile:18` was demoted for missing `file:line` evidence, re-ruled `pass`, and demoted again until the run stopped. Such a citation now counts as evidence when it carries a `/`; a bare `Makefile:18` still does not. Only the evidence check changes; plan citation checks and skill text are unchanged. Thanks @daniel-sampliner ([#286](https://github.com/juicesharp/rpiv-mono/pull/286)).
+
 ## [2.14.1] - 2026-10-23
 
 ### Fixed

@@ -225,6 +225,9 @@ export const planAuthoredRisks = (state: RunView, channel: string): Map<string, 
 	return out;
 };
 
+/** `scripts/Makefile:18` — the `/` keeps `HTTP:80` out. Evidence-only: the shared regex also feeds the citation floor. */
+const EXTENSIONLESS_FILE_LINE_RE = /(?<!\w)(?:\.?\/|\w[\w.-]*\/)+\w[\w.-]*:\d+/;
+
 /**
  * A mechanics-pass ruling's evidence duty: when the plan AUTHORED a
  * `claim_type: "mechanics"` risk for the ruling's id, a `pass` ruling MUST
@@ -243,7 +246,8 @@ export const evidenceCitesFileLine = (r: RiskRuling, authored?: RiskRecord): boo
 	// A deferred claim may concern code the plan has not written yet, so its
 	// procedure + owner are the duty instead.
 	if (authored?.claim_type !== "mechanics" || authored.disposition === "verify-at-implement") return true;
-	return typeof r.evidence === "string" && r.evidence.match(FILE_LINE_CITATION_RE) !== null;
+	if (typeof r.evidence !== "string") return false;
+	return r.evidence.match(FILE_LINE_CITATION_RE) !== null || EXTENSIONLESS_FILE_LINE_RE.test(r.evidence);
 };
 
 /**

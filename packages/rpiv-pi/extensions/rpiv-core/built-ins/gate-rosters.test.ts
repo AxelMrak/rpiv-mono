@@ -164,6 +164,18 @@ describe("evidenceCitesFileLine", () => {
 		}
 	});
 
+	it("a slash-qualified extensionless file counts — a Makefile pass is never demoted", () => {
+		for (const evidence of ["scripts/Makefile:18 — the target is present", "./Makefile:18", "bin/run:3-9"]) {
+			expect(evidenceCitesFileLine({ id: "r1", pass: true, evidence }, mechanics)).toBe(true);
+		}
+	});
+
+	it("a bare extensionless name or a word:number token still demotes", () => {
+		for (const evidence of ["Makefile:18", "HTTP:80", "the 3:1 ratio at 17:13:27"]) {
+			expect(evidenceCitesFileLine({ id: "r1", pass: true, evidence }, mechanics)).toBe(false);
+		}
+	});
+
 	it("a verify-at-implement mechanics flag carries no evidence duty — its procedure + owner are the duty", () => {
 		const deferredMechanics: RiskRecord = {
 			id: "r1",
