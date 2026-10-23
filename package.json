@@ -16,6 +16,7 @@
 		"build:site": "npm run build --workspace=@juicesharp/rpiv-site",
 		"test": "vitest run",
 		"coverage": "vitest run --coverage",
+		"test:outside-coverage": "vitest run packages/rpiv-pi/extensions/rpiv-core/loaded-siblings.real-session.test.ts",
 		"version:patch": "npm version patch -ws --no-git-tag-version && node scripts/sync-versions.js && shx rm -rf node_modules packages/*/node_modules package-lock.json && npm install",
 		"version:minor": "npm version minor -ws --no-git-tag-version && node scripts/sync-versions.js && shx rm -rf node_modules packages/*/node_modules package-lock.json && npm install",
 		"version:major": "npm version major -ws --no-git-tag-version && node scripts/sync-versions.js && shx rm -rf node_modules packages/*/node_modules package-lock.json && npm install",
