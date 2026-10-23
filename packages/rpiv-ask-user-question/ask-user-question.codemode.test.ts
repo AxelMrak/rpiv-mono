@@ -7,7 +7,7 @@
  * call: the test drives a real `AgentSession` with Pi's built-in codemode
  * extension and this package's entry, and reads the tools the request declares
  * to the (faux) model. The entry goes in as a factory, not a path: a path loads
- * a second, uninstrumented copy of the package through jiti.
+ * a second copy outside Vitest, whose coverage merges badly with this one.
  */
 
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
