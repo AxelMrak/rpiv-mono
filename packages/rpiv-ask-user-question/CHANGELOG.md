@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Space and `n` work in terminals that send CSI-u keys (Kitty keyboard protocol).** There, Space did not toggle a multi-select checkbox and `n` did not open notes, on question tabs or on the Submit tab. Both now match the key however the terminal encodes it; Shift+N, Alt and Ctrl variants are still ignored. Thanks @bumaociyuan ([#287](https://github.com/juicesharp/rpiv-mono/pull/287)).
+
 ## [2.14.1] - 2026-10-23
 
 ## [2.14.0] - 2026-10-23
