@@ -9,6 +9,7 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- **Going back to an answered question puts the cursor on your answer.** The cursor always returned to the first option, so a habitual Enter replaced the saved answer with option 1. It now lands on the chosen option, or on Next for a multi-select question, so Enter keeps the answer. A question answered with typed text still starts at the first option, so Tab and the arrows keep switching questions instead of editing the text. Thanks @xz-dev ([#281](https://github.com/juicesharp/rpiv-mono/pull/281)).
 - **Space and `n` work in terminals that send CSI-u keys (Kitty keyboard protocol).** There, Space did not toggle a multi-select checkbox and `n` did not open notes, on question tabs or on the Submit tab. Both now match the key however the terminal encodes it; Shift+N, Alt and Ctrl variants are still ignored. Thanks @bumaociyuan ([#287](https://github.com/juicesharp/rpiv-mono/pull/287)).
 
 ## [2.14.1] - 2026-10-23
