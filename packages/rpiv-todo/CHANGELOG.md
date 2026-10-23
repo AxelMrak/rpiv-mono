@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **A failed `todo` call no longer shows as a success.** A call missing `action` rendered as `todo undefined ✓`, and a call the reducer rejected (an unknown id, an invalid transition) echoed the requested status, e.g. `● completed`. The call card now shows just `todo` when there is no action, and the result card shows `✗` with the first line of the error. Only the transcript display changes; what the model receives is unchanged. Thanks @catch6. ([#175](https://github.com/juicesharp/rpiv-mono/issues/175))
+
 ## [2.14.1] - 2026-10-23
 
 ## [2.14.0] - 2026-10-23
