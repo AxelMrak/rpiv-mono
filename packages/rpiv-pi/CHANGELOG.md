@@ -10,6 +10,7 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - **Large plans no longer crash Pi with an out-of-memory error on the second grading pass.** Comparing a plan with its saved copy built a table with one cell per pair of lines, about 14 GiB for a 43,000-line plan, and the process was killed before the fallback to a full re-grade could run. The comparison now runs section by section with memory bounded by the largest section; the reported plan pair takes about 50 ms. For edits inside sections the result is unchanged. When headings themselves change, it can count more changed lines, which only makes a full re-grade more likely. Thanks @37 for the diagnosis and fix ([#226](https://github.com/juicesharp/rpiv-mono/issues/226), [#227](https://github.com/juicesharp/rpiv-mono/pull/227)).
+- **`validate` no longer fails on its own report when the plan's topic contains an em dash, parentheses or commas.** It used to build the report's filename from the plan's free-form `topic:`, and the workflow could not collect a path containing those characters. It now names the report after the plan file, whose name is already collectable. Thanks @mikenerone for the detailed report ([#314](https://github.com/juicesharp/rpiv-mono/issues/314)).
 
 ## [2.14.0] - 2026-10-23
 
