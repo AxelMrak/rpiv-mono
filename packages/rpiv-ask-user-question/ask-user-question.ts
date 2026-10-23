@@ -41,6 +41,7 @@ import {
 } from "./tool/types.ts";
 import { validateQuestionnaire } from "./tool/validate-questionnaire.ts";
 import type { WrappingSelectItem } from "./view/components/wrapping-select.ts";
+import { renderAskCall, renderAskResult } from "./view/transcript.ts";
 
 function emitAskUserPromptEvent(pi: ExtensionAPI, params: QuestionParams, toolCallId: string): void {
 	const payload: AskUserPromptEventPayload = {
@@ -467,6 +468,9 @@ export function registerAskUserQuestionTool(pi: ExtensionAPI): void {
 		parameters: QuestionParamsSchema,
 		// Undo double-encoded nested arguments before Pi validates them (#244).
 		prepareArguments: prepareQuestionArguments,
+		renderCall: (args, theme) => renderAskCall(args, theme),
+		renderResult: (result, { expanded }, theme, context) =>
+			renderAskResult(result, context?.args, theme, { expanded, isError: context?.isError ?? false }),
 
 		async execute(toolCallId, params, _signal, _onUpdate, ctx) {
 			// Line-terminator normalization runs once here, ahead of validation, so

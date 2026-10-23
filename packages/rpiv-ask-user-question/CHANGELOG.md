@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- **A compact receipt in the conversation history.** A finished `ask_user_question` call showed a JSON dump of its arguments and the full text written for the model. It now shows `Ask` with the question headers, then `✓ answer` for a single question or one aligned row per question for several, with skipped questions marked `not answered` and notes on `✎` lines. Typed answers are quoted, and `(Recommended)` is dropped from option labels. Ctrl+O adds each question's text and the chosen preview. A declined questionnaire shows `✗ no answer`; an error shows `✗` with its first line. Only the display changes; what the model receives is unchanged. Thanks @samuhlo and @OliverFGBKB ([#231](https://github.com/juicesharp/rpiv-mono/pull/231), [#292](https://github.com/juicesharp/rpiv-mono/issues/292)).
+
 ### Fixed
 
 - **Going back to an answered question puts the cursor on your answer.** The cursor always returned to the first option, so a habitual Enter replaced the saved answer with option 1. It now lands on the chosen option, or on Next for a multi-select question, so Enter keeps the answer. A question answered with typed text still starts at the first option, so Tab and the arrows keep switching questions instead of editing the text. Thanks @xz-dev ([#281](https://github.com/juicesharp/rpiv-mono/pull/281)).
