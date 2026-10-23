@@ -5,14 +5,14 @@
  * model and lists them in the `codemode` description instead, so the model
  * reaches them only from scripts. An interactive tool must stay a top-level
  * call: the test drives a real `AgentSession` with Pi's built-in codemode
- * extension and this package loaded from source, and reads the tools the
- * request declares to the (faux) model.
+ * extension and this package's entry, and reads the tools the request declares
+ * to the (faux) model. The entry goes in as a factory, not a path: a path loads
+ * a second, uninstrumented copy of the package through jiti.
  */
 
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { fileURLToPath } from "node:url";
 import { fauxAssistantMessage, fauxProvider, type Message } from "@earendil-works/pi-ai";
 import {
 	createAgentSession,
@@ -24,8 +24,7 @@ import {
 	SettingsManager,
 } from "@earendil-works/pi-coding-agent";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-
-const PACKAGE_DIR = fileURLToPath(new URL(".", import.meta.url));
+import askUserQuestion from "./index.ts";
 
 /** Any UI context other than Pi's no-op one makes `ctx.hasUI` true; its methods no-op. */
 const uiContext = new Proxy({}, { get: () => () => undefined }) as ExtensionUIContext;
@@ -82,8 +81,10 @@ describe("ask_user_question stays declared under codemode 'only' (#310)", () => 
 			cwd,
 			agentDir,
 			settingsManager,
-			additionalExtensionPaths: [PACKAGE_DIR],
-			extensionFactories: [{ name: "codemode", factory: createCodemodeExtension() }],
+			extensionFactories: [
+				{ name: "codemode", factory: createCodemodeExtension() },
+				{ name: "rpiv-ask-user-question", factory: askUserQuestion },
+			],
 		});
 		await resourceLoader.reload();
 		const { session } = await createAgentSession({
