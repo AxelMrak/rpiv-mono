@@ -7,6 +7,12 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **The `/wf build` plan gate no longer loops on a risk flag that no fix can clear.** Two cases demoted a passing risk ruling every round, so the gate stayed red although every panel member passed, and `plan-fix` had nothing to change:
+  - A `file:line` citation with an extension longer than 5 characters (`App.csproj:34`, `Index.cshtml:12`, `web.config:5`, `build.gradle:7`) did not count as evidence. Extensions of up to 10 characters now count, so .NET and Gradle projects are no longer stuck.
+  - A flag authored as both `claim_type: mechanics` and `disposition: verify-at-implement` also needed a `file:line` citation, which cannot exist for code a later phase writes. A deferred flag now needs only its `procedure` and `owner`, and the synthesize skill no longer pairs the two for such claims.
+
 ## [2.13.10] - 2026-10-23
 
 ### Changed

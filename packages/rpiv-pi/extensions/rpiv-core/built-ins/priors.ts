@@ -73,8 +73,8 @@ const codeSnapshot = snapshotLatestPlan("code-snapshot");
  * A duty demotion stamped onto a verdict's on-disk JSON — the legible record
  * that a risk ruling the panel marked `pass: true` was demoted to effective-
  * fail by the evidence or verify-at-implement duty. One entry per FAILING
- * duty (a ruling authored as BOTH mechanics AND verify-at-implement can carry
- * two). `reason` is decision-code-free prose (no run/phase ids, no absolute
+ * duty (a verify-at-implement flag carries only the procedure-owner duty, even
+ * when also authored as mechanics). `reason` is decision-code-free prose (no run/phase ids, no absolute
  * line numbers) naming the duty that failed, so disk readers (amend, confirm
  * `--prior`) can tell a grader-side demotion from a genuine `pass: false`.
  */
