@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Advisor calls now send a session id (`advisor-<pi session id>`). On OpenAI-family providers repeated consultations hit the prompt cache instead of re-reading the whole context, and OpenCode / OpenCode Go no longer reject every call with `MissingSessionID`. The id is separate from the executor's, so the advisor never shares the executor's cache key or Codex websocket, and its provider resources are released on session shutdown so headless `pi -p` runs exit promptly. Thanks @piousp for #263, and @Marsor707, @SlanyCukr and @draculalaa for the investigation in #236.
+
 ## [2.14.0] - 2026-10-23
 
 ## [2.13.10] - 2026-10-23

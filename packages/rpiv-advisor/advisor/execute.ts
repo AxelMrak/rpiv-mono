@@ -35,6 +35,16 @@ import { getRuntimeCompleteSimple, loadCompleteSimple } from "./pi-compat.ts";
 import { ADVISOR_SYSTEM_PROMPT } from "./prompt.ts";
 import { getAdvisorEffort, getAdvisorModel } from "./state.ts";
 
+/**
+ * The session id the advisor sends with every call. Providers derive the prompt
+ * cache key, session-affinity headers and OpenCode's required session header
+ * from it. It is stable per Pi session so consecutive consultations hit the
+ * cache, and distinct from the executor's id so the advisor never shares the
+ * executor's cache key or Codex websocket. Provider resources held under it are
+ * released on `session_shutdown` (see register.ts).
+ */
+export const advisorSessionId = (ctx: ExtensionContext): string => `advisor-${ctx.sessionManager.getSessionId()}`;
+
 interface AdvisorDetails {
 	advisorModel?: string;
 	effort?: ThinkingLevel;
@@ -143,9 +153,10 @@ export async function executeAdvisor(
 		// to this path: explicit overrides would bypass that resolution and
 		// reintroduce the endpoint mismatch.
 		const completeSimple = runtimeCompleteSimple ?? (await loadCompleteSimple());
+		const sessionId = advisorSessionId(ctx);
 		const requestOptions = runtimeCompleteSimple
-			? { signal, reasoning: effort }
-			: { apiKey: auth.apiKey, headers: auth.headers, signal, reasoning: effort };
+			? { signal, reasoning: effort, sessionId }
+			: { apiKey: auth.apiKey, headers: auth.headers, signal, reasoning: effort, sessionId };
 
 		// Single dispatch point — both attempts reuse the SAME `messages` and
 		// `requestOptions`, so the retry cannot diverge from attempt 1. `tools: []`
