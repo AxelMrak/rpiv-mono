@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Resuming a session no longer crashes on a corrupted todo snapshot.** Replay checked only that a saved snapshot had a `tasks` array, not what was in it. A session whose saved task list another extension had truncated with a marker string (`[output-policy: array truncated, …]`) restored that string as a task, and the overlay crashed while drawing it. Replay now checks every saved task and skips a snapshot with a malformed one, keeping the last valid list. Thanks @pstanton237 ([#230](https://github.com/juicesharp/rpiv-mono/pull/230)).
+
 ## [2.14.2] - 2026-10-23
 
 ### Fixed
