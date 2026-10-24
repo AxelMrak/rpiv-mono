@@ -310,6 +310,55 @@ describe("executeAdvisor — 4 StopReason branches", () => {
 	});
 });
 
+describe("executeAdvisor — retry on transient provider errors", () => {
+	const OVERLOADED = "Codex error: Our servers are currently overloaded. Please try again later.";
+	const run = async (settings?: unknown) => {
+		setAdvisorModel({ provider: "a", id: "m" } as never);
+		const { pi, captured } = createMockPi();
+		if (settings !== undefined) Object.assign(pi, { getSettings: () => settings });
+		registerAdvisorTool(pi);
+		return captured.tools
+			.get("advisor")
+			?.execute?.("tc", {}, undefined as never, undefined as never, createMockCtx());
+	};
+
+	it("retries a transient error under Pi's retry settings and returns the advice", async () => {
+		vi.mocked(completeSimple)
+			.mockResolvedValueOnce(resp({ stopReason: "error", errorMessage: OVERLOADED }) as never)
+			.mockResolvedValueOnce(resp({ text: "advice" }) as never);
+		const r = await run({ retry: { baseDelayMs: 1 } });
+		expect(r?.content[0]).toMatchObject({ text: "advice" });
+		expect(completeSimple).toHaveBeenCalledTimes(2);
+	});
+
+	it("surfaces the last error once the retry budget is spent", async () => {
+		vi.mocked(completeSimple).mockResolvedValue(resp({ stopReason: "error", errorMessage: OVERLOADED }) as never);
+		const r = await run({ retry: { maxRetries: 2, baseDelayMs: 1 } });
+		expect(r?.details).toMatchObject({ stopReason: "error", errorMessage: OVERLOADED });
+		expect(completeSimple).toHaveBeenCalledTimes(3);
+	});
+
+	it("does not retry a permanent error", async () => {
+		vi.mocked(completeSimple).mockResolvedValueOnce(
+			resp({ stopReason: "error", errorMessage: "401 Unauthorized: invalid api key" }) as never,
+		);
+		await run({ retry: { baseDelayMs: 1 } });
+		expect(completeSimple).toHaveBeenCalledTimes(1);
+	});
+
+	it("does not retry when Pi's retry setting is disabled", async () => {
+		vi.mocked(completeSimple).mockResolvedValueOnce(resp({ stopReason: "error", errorMessage: OVERLOADED }) as never);
+		await run({ retry: { enabled: false, baseDelayMs: 1 } });
+		expect(completeSimple).toHaveBeenCalledTimes(1);
+	});
+
+	it("does not retry on a host without settings access", async () => {
+		vi.mocked(completeSimple).mockResolvedValueOnce(resp({ stopReason: "error", errorMessage: OVERLOADED }) as never);
+		await run();
+		expect(completeSimple).toHaveBeenCalledTimes(1);
+	});
+});
+
 describe("executeAdvisor — auth envelopes", () => {
 	it("returns no-model envelope when advisor is not configured", async () => {
 		const { pi, captured } = createMockPi();

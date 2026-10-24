@@ -31,7 +31,7 @@ import {
 	errNoApiKeyDetail,
 	msgConsulting,
 } from "./messages.ts";
-import { getRuntimeCompleteSimple, loadCompleteSimple } from "./pi-compat.ts";
+import { getRuntimeCompleteSimple, loadCompleteSimple, withHostRetry } from "./pi-compat.ts";
 import { ADVISOR_SYSTEM_PROMPT } from "./prompt.ts";
 import { getAdvisorEffort, getAdvisorModel } from "./state.ts";
 
@@ -162,13 +162,18 @@ export async function executeAdvisor(
 		// `requestOptions`, so the retry cannot diverge from attempt 1. `tools: []`
 		// plus stripToolDeclarations keeps the "never calls tools" contract: on
 		// Pi >= 1.0 the transcript's system messages declare tools of their own.
+		// A transient provider error is retried under Pi's retry settings first.
 		const callAdvisor = (): Promise<AssistantMessage> =>
-			completeSimple(advisor, { systemPrompt: ADVISOR_SYSTEM_PROMPT, messages, tools: [] }, requestOptions);
+			withHostRetry(
+				pi,
+				() => completeSimple(advisor, { systemPrompt: ADVISOR_SYSTEM_PROMPT, messages, tools: [] }, requestOptions),
+				signal,
+			);
 
 		// Build the terminal envelope for an aborted/error stopReason, or return
 		// undefined when the attempt produced a normal stop whose text (or lack of
 		// text) the caller must still resolve. Aborted/error short-circuit and are
-		// NEVER retried — they are not the empty-response class R6.4 targets.
+		// never given the empty-response retry — they are not the class R6.4 targets.
 		const stopReasonEnvelope = (r: AssistantMessage): AgentToolResult<AdvisorDetails> | undefined => {
 			if (r.stopReason === "aborted") {
 				return buildAdvisorResult({
@@ -195,7 +200,7 @@ export async function executeAdvisor(
 
 		let response = await callAdvisor();
 
-		// Aborted/error short-circuit on the first attempt — no retry.
+		// Aborted/error short-circuit on the first attempt — no empty-response retry.
 		const firstTerminal = stopReasonEnvelope(response);
 		if (firstTerminal) return firstTerminal;
 

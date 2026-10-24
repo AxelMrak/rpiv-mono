@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **A temporary provider error no longer fails the advisor call outright.** One "servers are overloaded" response, rate limit or dropped connection ended the consultation with `Advisor call failed`. The advisor now retries such errors under your Pi `retry` settings, the same policy Pi uses for its own turns and compaction (by default up to 3 retries with growing backoff; `"retry": { "enabled": false }` turns it off). Permanent errors such as an invalid key or exhausted quota still fail at once. Needs Pi 1.0 or later; older hosts call once, as before. Thanks @CovetingEpiphany2152 ([#191](https://github.com/juicesharp/rpiv-mono/issues/191)).
+
 ## [2.14.2] - 2026-10-23
 
 ## [2.14.1] - 2026-10-23
