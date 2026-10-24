@@ -200,6 +200,66 @@ describe("routeKey — configured notes key", () => {
 	});
 });
 
+describe("routeKey — digit hotkeys", () => {
+	const options = ["A", "B", "C"].map((label) => ({ kind: "option" as const, label }));
+	const other = { kind: "other" as const, label: "Type something." };
+	const next = { kind: "next" as const, label: "Next" };
+	const single = (over: Partial<QuestionnaireRuntime> = {}) => makeRuntime({ items: [...options, other], ...over });
+	const multi = () =>
+		makeRuntime({
+			questions: [makeQuestion({ multiSelect: true })],
+			isMulti: false,
+			items: [...options, other, next],
+		});
+
+	it("single-select: a digit answers with that row, like Enter on it", () => {
+		expect(routeKey("2", makeState(), single())).toEqual({
+			kind: "confirm",
+			answer: { questionIndex: 0, question: "Pick one", kind: "option", answer: "B" },
+			autoAdvanceTab: 1,
+		});
+		expect(routeKey("1", makeState(), single({ questions: [makeQuestion()], isMulti: false }))).toEqual({
+			kind: "confirm",
+			answer: { questionIndex: 0, question: "Pick one", kind: "option", answer: "A" },
+			autoAdvanceTab: undefined,
+		});
+	});
+
+	it("multi-select: a digit toggles that row", () => {
+		expect(routeKey("2", makeState(), multi())).toEqual({ kind: "toggle", index: 1 });
+	});
+
+	it("the Type something. row's digit only focuses it", () => {
+		expect(routeKey("4", makeState(), single())).toEqual({ kind: "nav", nextIndex: 3, inputValue: "" });
+		expect(routeKey("4", makeState(), multi())).toEqual({ kind: "nav", nextIndex: 3, inputValue: "" });
+	});
+
+	it("ignores the unnumbered Next row, digits past the rows, 0 and pasted digits", () => {
+		expect(routeKey("5", makeState(), multi())).toEqual({ kind: "ignore" });
+		for (const data of ["9", "0", "12"])
+			expect(routeKey(data, makeState(), single()), data).toEqual({ kind: "ignore" });
+	});
+
+	it("matches a CSI-u digit", () => {
+		expect(routeKey("\x1b[50u", makeState(), multi())).toEqual({ kind: "toggle", index: 1 });
+	});
+
+	it("leaves digits as text while typing a custom answer or a note", () => {
+		expect(routeKey("2", makeState({ inputMode: true, optionIndex: 3 }), single())).toEqual({ kind: "ignore" });
+		expect(routeKey("2", makeState({ notesVisible: true }), single())).toEqual({ kind: "notes_forward", data: "2" });
+	});
+
+	it("a keybinding or notes key on a digit wins over the row hotkey", () => {
+		const boundUp = { matches: (data: string, name: string) => data === "2" && name === KEY.UP };
+		expect(routeKey("2", makeState({ optionIndex: 1 }), single({ keybindings: boundUp }))).toEqual({
+			kind: "nav",
+			nextIndex: 0,
+			inputValue: "",
+		});
+		expect(routeKey("2", makeState(), single({ notesKey: "2" }))).toEqual({ kind: "notes_enter" });
+	});
+});
+
 describe("routeKey — nav", () => {
 	it("UP from a non-zero index decrements by 1", () => {
 		expect(routeKey(sentinel(KEY.UP), makeState({ optionIndex: 2 }), makeRuntime())).toEqual({

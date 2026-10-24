@@ -248,6 +248,24 @@ function routeSubmitTab(
 	return { kind: "ignore" };
 }
 
+const DIGIT_KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"] as const;
+
+/**
+ * The row a digit hotkey names: `1`-`9` follow the list's numbering, so the
+ * unnumbered Next row has no digit. One key per keystroke — a pasted `"12"`
+ * matches none. Checked after every keybinding, so a digit bound to an action
+ * keeps that action.
+ */
+function digitRow(
+	data: string,
+	runtime: QuestionnaireRuntime,
+): { index: number; activatesInputMode: boolean } | undefined {
+	const index = DIGIT_KEYS.findIndex((digit) => matchesKey(data, digit));
+	const item = runtime.items[index];
+	if (!item || !ROW_INTENT_META[item.kind].numbered) return undefined;
+	return { index, activatesInputMode: ROW_INTENT_META[item.kind].activatesInputMode };
+}
+
 function routeMultiSelectTab(
 	kb: QuestionnaireKeybindings,
 	data: string,
@@ -276,7 +294,11 @@ function routeMultiSelectTab(
 		return buildMultiConfirmAction(state, runtime);
 	}
 	if (kb.matches(data, KEYBIND_CANCEL)) return { kind: "cancel" };
-	return { kind: "ignore" };
+	// A digit toggles its row; the Type something. row's digit focuses it instead.
+	const row = digitRow(data, runtime);
+	if (!row) return { kind: "ignore" };
+	if (row.activatesInputMode) return { kind: "nav", nextIndex: row.index, inputValue: runtime.inputBuffer };
+	return { kind: "toggle", index: row.index };
 }
 
 function routeSingleSelectTab(
@@ -291,7 +313,16 @@ function routeSingleSelectTab(
 		return { kind: "confirm", answer, autoAdvanceTab: computeAutoAdvanceTab(state, runtime) };
 	}
 	if (kb.matches(data, KEYBIND_CANCEL)) return { kind: "cancel" };
-	return { kind: "ignore" };
+	// A digit answers with its row, as Enter on it would; the Type something. row's digit focuses it instead.
+	const row = digitRow(data, runtime);
+	if (!row) return { kind: "ignore" };
+	if (row.activatesInputMode) return { kind: "nav", nextIndex: row.index, inputValue: runtime.inputBuffer };
+	const answer = buildSingleSelectAnswer(
+		{ ...state, optionIndex: row.index },
+		{ ...runtime, currentItem: runtime.items[row.index] },
+	);
+	if (!answer) return { kind: "ignore" };
+	return { kind: "confirm", answer, autoAdvanceTab: computeAutoAdvanceTab(state, runtime) };
 }
 
 export function routeKey(data: string, state: QuestionnaireState, runtime: QuestionnaireRuntime): QuestionnaireAction {

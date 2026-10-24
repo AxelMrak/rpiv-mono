@@ -9,6 +9,7 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- **Digit keys pick a row.** Pressing `1`–`9` acts on the row with that number: on a single-select question it answers with that row, exactly like Enter on it (in a one-question dialog that closes the dialog); on a multi-select question it toggles the row; on the `Type something.` row it moves there so you can type. Digits are still text inside `Type something.` and the notes editor, `Next` has no digit, and a digit you bound to a Pi keybinding or set as `notesKey` keeps that meaning. A digit that used to do nothing now answers a single-select question. Thanks @hank-warren ([#163](https://github.com/juicesharp/rpiv-mono/issues/163)).
 - **The notes key is configurable (`notesKey`), so notes work on non-Latin keyboard layouts.** The `n` shortcut never fired on, for example, a Cyrillic layout, where that key types `т`, and Pi's key parser only recognises Latin keys. Set `notesKey` to the character your keyboard types (`"т"`), or to a key spec such as `"ctrl+n"`. A single character matches as typed, in any script; invalid values and keys the dialog already uses (space, Enter, Tab, Esc, arrows) fall back to `n`. The notes hints in all 9 languages name the configured key. The default stays `n`. Thanks @Robert322-ai ([#294](https://github.com/juicesharp/rpiv-mono/issues/294)).
 
 ## [2.14.2] - 2026-10-23
