@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- **You.com reads `YDC_API_KEY` too.** That is the name You.com's own SDK and the LangChain, CrewAI and DSPy integrations use, so one exported key now works across tools. `YOUCOM_API_KEY` still comes first when both are set, so existing setups behave exactly as before. Thanks @brainsparker ([#90](https://github.com/juicesharp/rpiv-mono/pull/90)).
+
 ## [2.14.2] - 2026-10-23
 
 ## [2.14.1] - 2026-10-23
