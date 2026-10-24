@@ -7,6 +7,11 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Resumed fanout runs no longer show finished units as pending.** Rerunning a run after a failed stage seeded every fanout unit `○ pending`, including the ones that had already finished, and they stayed that way while the remaining units ran. If the resumed run then failed, those finished units turned ✗. Already-finished units now show ✓ (or ✗ for a collected halt), and the `units x/y` counter starts from their count.
+- **Resuming a failed run no longer drops the tokens it already spent.** A stage that failed never banked its units' tokens into the stage total, and the resume then cleared those units, so the lane total, the heading total and the per-stage breakdown all under-reported. The failed attempt's tokens are now added to that stage's total on resume, and the resumed units add on top. Tokens are still kept in memory only, so restarting Pi before resuming loses them.
+
 ## [2.15.0] - 2026-10-24
 
 ## [2.14.2] - 2026-10-23
