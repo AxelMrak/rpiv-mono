@@ -7,6 +7,10 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- **The notes key is configurable (`notesKey`), so notes work on non-Latin keyboard layouts.** The `n` shortcut never fired on, for example, a Cyrillic layout, where that key types `т`, and Pi's key parser only recognises Latin keys. Set `notesKey` to the character your keyboard types (`"т"`), or to a key spec such as `"ctrl+n"`. A single character matches as typed, in any script; invalid values and keys the dialog already uses (space, Enter, Tab, Esc, arrows) fall back to `n`. The notes hints in all 9 languages name the configured key. The default stays `n`. Thanks @Robert322-ai ([#294](https://github.com/juicesharp/rpiv-mono/issues/294)).
+
 ## [2.14.2] - 2026-10-23
 
 ### Added

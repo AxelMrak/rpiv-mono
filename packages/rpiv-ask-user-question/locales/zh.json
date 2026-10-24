@@ -12,7 +12,7 @@
   "hint.newline": "Shift+Enter 换行",
   "hint.clear": "Ctrl+U 清空",
   "hint.toggle": "空格切换",
-  "hint.notes": "按 n 添加备注",
+  "hint.notes": "按 {key} 添加备注",
   "hint.tab": "Tab 切换问题",
   "hint.collapse": "{key} 折叠",
   "hint.expand_line": "{key} 展开 · Esc 取消",
@@ -23,8 +23,8 @@
   "review.incomplete": "⚠ 提交前请先回答以下问题：",
 
   "preview.no_preview": "暂无预览",
-  "preview.notes_affordance": "备注：按 n 添加",
-  "preview.notes_edit_affordance": "备注已保存：按 n 编辑",
+  "preview.notes_affordance": "备注：按 {key} 添加",
+  "preview.notes_edit_affordance": "备注已保存：按 {key} 编辑",
   "notes.header": "备注：",
   "notes.saved_label": "此回答的备注：",
 

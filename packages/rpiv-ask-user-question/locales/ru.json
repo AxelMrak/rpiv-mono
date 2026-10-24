@@ -12,7 +12,7 @@
   "hint.newline": "Shift+Enter — новая строка",
   "hint.clear": "Ctrl+U — очистить",
   "hint.toggle": "Space — переключить",
-  "hint.notes": "n — добавить заметки",
+  "hint.notes": "{key} — добавить заметки",
   "hint.tab": "Tab — следующий вопрос",
   "hint.cancel": "Esc — отменить",
 
@@ -21,8 +21,8 @@
   "review.incomplete": "⚠ Ответьте на оставшиеся вопросы перед отправкой:",
 
   "preview.no_preview": "Предпросмотр недоступен",
-  "preview.notes_affordance": "Заметки: нажмите n, чтобы добавить заметки",
-  "preview.notes_edit_affordance": "Заметка сохранена: нажмите n, чтобы изменить",
+  "preview.notes_affordance": "Заметки: нажмите {key}, чтобы добавить заметки",
+  "preview.notes_edit_affordance": "Заметка сохранена: нажмите {key}, чтобы изменить",
   "notes.header": "Заметки:",
   "notes.saved_label": "Заметка к этому ответу:",
 

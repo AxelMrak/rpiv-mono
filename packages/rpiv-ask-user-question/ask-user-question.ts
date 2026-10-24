@@ -6,6 +6,7 @@ import {
 	formatKeySpecForDisplay,
 	loadConfig,
 	resolveCollapseKey,
+	resolveNotesKey,
 	validateGuidanceFields,
 } from "./config.ts";
 import {
@@ -200,14 +201,25 @@ function makeSessionFactory(config: {
 	typed: QuestionParams;
 	itemsByTab: WrappingSelectItem[][];
 	collapseKey: string;
+	notesKey: string;
 	canReopenWhileHidden: boolean;
 	presentation: Presentation;
 	sessionRef: SessionRef;
 	open: OpenQuestionnaire;
 	Session: SessionModule["QuestionnaireSession"];
 }) {
-	const { ctx, typed, itemsByTab, collapseKey, canReopenWhileHidden, presentation, sessionRef, open, Session } =
-		config;
+	const {
+		ctx,
+		typed,
+		itemsByTab,
+		collapseKey,
+		notesKey,
+		canReopenWhileHidden,
+		presentation,
+		sessionRef,
+		open,
+		Session,
+	} = config;
 	return (
 		tui: TUI,
 		theme: Theme,
@@ -253,6 +265,7 @@ function makeSessionFactory(config: {
 				}
 			},
 			collapseKey,
+			notesKey,
 			canReopenWhileHidden,
 			rowBudget: rowBudgetForHost(tui.terminal, presentation.rowBudget),
 		});
@@ -280,6 +293,7 @@ async function mountQuestionnaire(config: {
 	typed: QuestionParams;
 	itemsByTab: WrappingSelectItem[][];
 	collapseKey: string;
+	notesKey: string;
 	presentation: Presentation;
 	open: OpenQuestionnaire;
 	Session: SessionModule["QuestionnaireSession"];
@@ -358,7 +372,9 @@ async function runTuiPath(pi: ExtensionAPI, ctx: ExtensionContext, typed: Questi
 		// with non-US layouts (e.g. Latin American, where `]` is shifted) can override
 		// via the `collapseKey` config field. `resolveCollapseKey` also accepts the
 		// sentinel value `"off"` to disable the shortcut entirely.
-		const collapseKey = resolveCollapseKey(loadConfig());
+		const config = loadConfig();
+		const collapseKey = resolveCollapseKey(config);
+		const notesKey = resolveNotesKey(config);
 		const mount = (p: Presentation) =>
 			Promise.race([
 				mountQuestionnaire({
@@ -366,6 +382,7 @@ async function runTuiPath(pi: ExtensionAPI, ctx: ExtensionContext, typed: Questi
 					typed,
 					itemsByTab,
 					collapseKey,
+					notesKey,
 					presentation: p,
 					open,
 					Session: QuestionnaireSession,

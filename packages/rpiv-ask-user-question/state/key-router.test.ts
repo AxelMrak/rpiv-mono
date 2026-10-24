@@ -79,6 +79,7 @@ function makeRuntime(over: Partial<QuestionnaireRuntime> = {}): QuestionnaireRun
 		currentItem: items[0],
 		items,
 		collapseKey: "ctrl+]",
+		notesKey: "n",
 		...over,
 	};
 }
@@ -175,6 +176,28 @@ describe("routeKey — modified CSI-u shortcuts", () => {
 			expect(routeKey(data, makeState({ currentTab: 2 }), makeRuntime())).toEqual({ kind: "ignore" });
 		},
 	);
+});
+
+describe("routeKey — configured notes key", () => {
+	it("a non-Latin key opens notes on a question tab and on the Submit tab", () => {
+		const runtime = makeRuntime({ notesKey: "т" });
+		expect(routeKey("т", makeState(), runtime)).toEqual({ kind: "notes_enter" });
+		expect(routeKey("т", makeState({ currentTab: 2 }), runtime)).toEqual({ kind: "notes_enter" });
+	});
+
+	it("n no longer opens notes once another key is configured", () => {
+		expect(routeKey("n", makeState(), makeRuntime({ notesKey: "т" }))).toEqual({ kind: "ignore" });
+	});
+
+	it("a modifier spec matches through pi-tui", () => {
+		expect(routeKey("\x0e", makeState(), makeRuntime({ notesKey: "ctrl+n" }))).toEqual({ kind: "notes_enter" });
+	});
+
+	it("a missing key falls back to n", () => {
+		expect(routeKey("n", makeState(), makeRuntime({ notesKey: undefined as never }))).toEqual({
+			kind: "notes_enter",
+		});
+	});
 });
 
 describe("routeKey — nav", () => {

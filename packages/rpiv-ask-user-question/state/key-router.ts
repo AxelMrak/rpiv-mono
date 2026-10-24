@@ -16,6 +16,17 @@ const KEYBIND_EXTERNAL_EDITOR = "app.editor.external";
 
 const NOTES_ACTIVATE_KEY = "n";
 
+/**
+ * The notes shortcut. A single-character key matches the character as typed, so a
+ * non-Latin one works (pi-tui's key parser knows only ASCII); anything else matches as
+ * a pi-tui key spec. A non-string key — a stale outer module, as with `collapseKey`
+ * below — falls back to `n`.
+ */
+function matchesNotesKey(data: string, notesKey: unknown): boolean {
+	const key = typeof notesKey === "string" ? notesKey : NOTES_ACTIVATE_KEY;
+	return data === key || matchesKey(data, key as Parameters<typeof matchesKey>[1]);
+}
+
 export type QuestionnaireAction =
 	| { kind: "nav"; nextIndex: number; inputValue: string }
 	| { kind: "input_clear" }
@@ -224,14 +235,14 @@ function routeSubmitTab(
 		// answers flow through `orderedAnswers()` in the host.
 		return state.submitChoiceIndex === 1 ? { kind: "cancel" } : { kind: "submit" };
 	}
-	// Global note (#182): `n` on the Submit tab opens the notes editor scoped to the whole
+	// Global note (#182): the notes key on the Submit tab opens the notes editor scoped to the whole
 	// questionnaire at the pseudo-index (`questions.length` in notesByTab). Reachable only
 	// with the editor closed — `routeKey` dispatches notesVisible traffic to
 	// `routeNotesMode` before the submit-tab block runs. The branch shadows nothing above
-	// it (cancel, tab switch, submit-nav, confirm): an `n` key matches none of them
+	// it (cancel, tab switch, submit-nav, confirm): the default `n` matches none of them
 	// under default bindings, and a user who deliberately binds one of those actions to
 	// `n` keeps that mapping because the earlier branch still wins (Enter still submits).
-	if (matchesKey(data, NOTES_ACTIVATE_KEY)) {
+	if (matchesNotesKey(data, runtime.notesKey)) {
 		return { kind: "notes_enter" };
 	}
 	return { kind: "ignore" };
@@ -341,7 +352,7 @@ export function routeKey(data: string, state: QuestionnaireState, runtime: Quest
 	// "Type something.") is irrelevant: the gate sits ABOVE the multi-select
 	// toggle block and the Next sentinel never activates inputMode, so `n` is
 	// neither swallowed earlier nor blocked by `blocksMultiToggle`.
-	if (matchesKey(data, NOTES_ACTIVATE_KEY)) {
+	if (matchesNotesKey(data, runtime.notesKey)) {
 		return { kind: "notes_enter" };
 	}
 
